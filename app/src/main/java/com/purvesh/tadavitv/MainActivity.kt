@@ -25,7 +25,8 @@ class MainActivity : Activity() {
         "hotstar" to listOf("in.startv.hotstar.dplus.tv", "in.startv.hotstar"),
         "sonyliv" to listOf("com.sonyliv"),
         "spotify" to listOf("com.spotify.tv.android", "com.spotify.music"),
-        "xiaomitv" to listOf("com.xiaomi.mitv.tvplus", "com.mitv.tvhome.atv", "com.mitv.livetv")
+        "xiaomitv" to listOf("com.xiaomi.mitv.tvplus", "com.mitv.tvhome.atv", "com.mitv.livetv"),
+        "netflix" to listOf("com.netflix.ninja")
     )
 
     inner class Bridge {
@@ -67,6 +68,7 @@ class MainActivity : Activity() {
             if (t.indexOf('sony') > -1) return 'sonyliv';
             if (t.indexOf('spotify') > -1) return 'spotify';
             if (t.indexOf('xiaomi') > -1) return 'xiaomitv';
+            if (t.indexOf('netflix') > -1) return 'netflix';
             return null;
           }
           function go(el, e){
