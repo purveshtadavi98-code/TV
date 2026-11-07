@@ -20,7 +20,7 @@ import java.net.HttpURLConnection
 import java.net.URL
 
 // PUT YOUR FREE TMDB API KEY HERE (themoviedb.org -> Settings -> API)
-const val TMDB_KEY = "PUT_YOUR_TMDB_KEY_HERE"
+const val TMDB_KEY = "6b49683e9e12ffc3730374cfde203e34"
 
 class MainActivity : Activity() {
 
