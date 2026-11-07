@@ -6,6 +6,21 @@
     <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
     <uses-feature android:name="android.software.leanback" android:required="false" />
 
+    <queries>
+        <package android:name="com.google.android.youtube.tv" />
+        <package android:name="com.google.android.youtube" />
+        <package android:name="com.amazon.amazonvideo.livingroom" />
+        <package android:name="com.amazon.avod.thirdpartyclient" />
+        <package android:name="in.startv.hotstar.dplus.tv" />
+        <package android:name="in.startv.hotstar" />
+        <package android:name="com.sonyliv" />
+        <package android:name="com.spotify.tv.android" />
+        <package android:name="com.spotify.music" />
+        <package android:name="com.xiaomi.mitv.tvplus" />
+        <package android:name="com.mitv.tvhome.atv" />
+        <package android:name="com.mitv.livetv" />
+    </queries>
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/banner"
@@ -25,18 +40,6 @@
                 <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-            <!--
-              OPTIONAL: use this app as your Home screen.
-              Uncomment, rebuild, press Home on the remote, choose "Tadavi's TV" -> Always.
-              Keep it commented until the app works.
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.HOME" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-            -->
         </activity>
     </application>
 </manifest>
