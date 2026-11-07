@@ -7,6 +7,7 @@
     <uses-feature android:name="android.software.leanback" android:required="false" />
 
     <queries>
+        <package android:name="com.netflix.ninja" />
         <package android:name="com.google.android.youtube.tv" />
         <package android:name="com.google.android.youtube" />
         <package android:name="com.amazon.amazonvideo.livingroom" />
