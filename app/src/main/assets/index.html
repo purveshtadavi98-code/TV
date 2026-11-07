@@ -34,10 +34,35 @@ h2:before{content:"";width:8px;height:8px;border-radius:50%;background:linear-gr
 .sb{width:240px;height:92px;background:#ffffff12;border:1px solid #ffffff22;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:16px;text-align:center;padding:10px}
 #st{position:fixed;left:18px;bottom:8px;font-size:11px;color:#64748b;z-index:6}
 #toast{position:fixed;top:24px;left:50%;transform:translateX(-50%);background:#0f172af0;border:1px solid #f97316;padding:12px 22px;border-radius:99px;z-index:7;display:none;font-size:14px}
+
+body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+.mark{position:relative;overflow:hidden;animation:spin 7s ease-in-out infinite;box-shadow:0 0 0 2px #ffffff40 inset,0 22px 60px #f9731699,0 8px 0 #7c2d12}
+.mark:before{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 40%,#ffffff88 50%,transparent 60%) 150% 0/250% 100% no-repeat;animation:sw 3.6s ease-in-out infinite;z-index:2}
+.mark:after{content:"";position:absolute;left:0;right:0;top:0;height:46%;background:linear-gradient(#ffffff55,transparent);border-radius:inherit}
+.t3{position:relative;z-index:1;color:#fff;text-shadow:1px 1px 0 #fde7c8,2px 2px 0 #f9c58c,3px 3px 0 #ef9650,4px 4px 0 #d2672a,5px 5px 0 #a8481c,6px 6px 0 #7c2d12,8px 10px 18px #000a}
+.li{width:86%;height:86%;object-fit:contain;position:relative;z-index:1;filter:drop-shadow(0 8px 12px #000a)}.li+.t3{display:none}
+.mark:has(.li){background:none;box-shadow:none}.mark:has(.li):before,.mark:has(.li):after{display:none}
+@keyframes spin{0%,100%{transform:perspective(500px) rotateY(-20deg) rotateX(8deg)}50%{transform:perspective(500px) rotateY(20deg) rotateX(-6deg) translateY(-4px)}}
+@keyframes sw{to{background-position:-50% 0}}@keyframes gl{to{background-position:200% 0}}
+#boot .mark{width:140px;height:140px;font-size:84px;border-radius:42px}
+#boot h1{background:linear-gradient(90deg,#fff,#fde68a,#fb923c,#ec4899,#fff);background-size:200%;-webkit-background-clip:text;color:transparent;animation:gl 4s linear infinite}
+.brand b{background:linear-gradient(90deg,#fff,#fde68a,#fb923c,#fff);background-size:200%;-webkit-background-clip:text;color:transparent;animation:gl 6s linear infinite}
+.on{transform:perspective(700px) scale(1.09) translateY(-5px) rotateX(3deg)!important}
+.on:after{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(115deg,transparent 40%,#ffffff55 50%,transparent 60%) 150% 0/250% 100% no-repeat;animation:sw 1.3s ease-out;pointer-events:none}
+.app{box-shadow:inset 0 2px 0 #ffffff66,inset 0 -14px 24px #0005,0 14px 30px #000a!important}
+.nw,.pill,.sb,.mv{box-shadow:inset 0 1px 0 #ffffff40,0 12px 30px #0007}
+.app i{font-size:38px;transform:translateZ(30px);filter:drop-shadow(0 6px 8px #0008)}
+#tick{box-shadow:0 6px 24px #0006,inset 0 1px 0 #ffffff30}
+.hl{height:64px;width:auto;filter:drop-shadow(0 4px 14px #7c3aedaa);animation:fl2 5s ease-in-out infinite alternate}
+@keyframes fl2{to{transform:translateY(-4px) rotate(-2deg)}}
+#boot .bb{position:absolute;inset:0;background:url(splash.jpg) center/cover;filter:blur(36px) brightness(.55);transform:scale(1.15)}
+#boot .bi{position:relative;height:100vh;max-width:100%;object-fit:contain;animation:zin 2.6s ease-out}
+#boot .fb{position:relative}
+@keyframes zin{from{transform:scale(.92);opacity:0}to{transform:scale(1);opacity:1}}
 </style></head><body>
 <div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
-<div id="boot"><div class="mark">T</div><h1>Tadavi’s TV OS</h1><p>MADE BY PURVESH</p></div>
-<header><div class="brand"><div class="mark">T</div><div><b>Tadavi’s TV</b><small>MADE BY PURVESH</small></div></div><div class="time"><div id="clock"></div><div id="date"></div></div></header>
+<div id="boot"><div class="bb"></div><img class="bi" src="splash.jpg" onerror="this.remove();document.querySelector('#boot .fb').style.display='flex'"><div class="fb" style="display:none;flex-direction:column;align-items:center"><div class="mark"><span class="t3">T</span></div><h1>Tadavi’s TV</h1><p>MADE BY PURVESH</p></div></div>
+<header><div class="brand"><img class="hl" src="logo.png" onerror="this.outerHTML='<div class=mark><span class=t3>T</span></div>'"><div><b>Tadavi’s TV</b><small>MADE BY PURVESH</small></div></div><div class="time"><div id="clock"></div><div id="date"></div></div></header>
 <div id="st"></div><div id="tick">Loading latest news…</div><div id="toast"></div>
 <main><div class="row hi" id="r0"><div id="hello"></div><div class="f pill" data-s="all">⚙️  Settings</div></div>
 <h2>Apps</h2><div class="row" id="apps"></div>
@@ -87,5 +112,5 @@ const FD=[["INDIA","https://news.google.com/rss?hl=en-IN&gl=IN&ceid=IN:en"],["MA
 async function webNews(){const out=[];for(const [rg,u] of FD){try{const j=await(await fetch("https://api.rss2json.com/v1/api.json?rss_url="+encodeURIComponent(u))).json();(j.items||[]).slice(0,6).forEach(i=>{const p=i.title.lastIndexOf(" - ");out.push({region:rg,title:p>0?i.title.slice(0,p):i.title,src:p>0?i.title.slice(p+3):"Google News",date:(i.pubDate||"").replace(" ","T")+"Z"})})}catch(e){}}window.onNews(JSON.stringify(out.length?out:{error:"no internet or feed blocked"}))}
 async function webMovies(){if(!TMDB_JS_KEY){window.onMovies(JSON.stringify({nokey:true}));return}try{const b="https://api.themoviedb.org/3",k=TMDB_JS_KEY;const t=await(await fetch(`${b}/trending/movie/day?api_key=${k}&language=en-IN`)).json();const h=await(await fetch(`${b}/discover/movie?api_key=${k}&with_original_language=hi&region=IN&sort_by=popularity.desc&primary_release_date.gte=2025-01-01`)).json();window.onMovies(JSON.stringify({trending:t.results||[],hindi:h.results||[]}))}catch(e){window.onMovies(JSON.stringify({error:String(e)}))}}
 stat();col();foc();news();movies();setInterval(news,60000);setInterval(movies,3600000);
-setTimeout(()=>{$("#boot").style.opacity=0;setTimeout(()=>$("#boot").remove(),700)},1800);
+setTimeout(()=>{$("#boot").style.opacity=0;setTimeout(()=>$("#boot").remove(),700)},3200);
 </script></body></html>
