@@ -114,6 +114,7 @@ class MainActivity : Activity() {
         fun fetchNews() {
             Thread {
                 val out = JSONArray()
+                var err = ""
                 for ((label, url) in feeds) {
                     try {
                         val xml = http(url)
@@ -125,9 +126,9 @@ class MainActivity : Activity() {
                             out.put(JSONObject().put("region", label).put("title", clean(tag("title")))
                                 .put("src", clean(tag("source"))).put("date", tag("pubDate")))
                         }
-                    } catch (e: Exception) { }
+                    } catch (e: Exception) { err = e.toString() }
                 }
-                if (out.length() > 0) push("onNews", out.toString())
+                push("onNews", if (out.length() > 0) out.toString() else JSONObject().put("error", err).toString())
             }.start()
         }
 
@@ -142,7 +143,7 @@ class MainActivity : Activity() {
                         "&region=IN&sort_by=popularity.desc&primary_release_date.gte=2025-01-01"))
                     val o = JSONObject().put("trending", t.optJSONArray("results")).put("hindi", h.optJSONArray("results"))
                     push("onMovies", o.toString())
-                } catch (e: Exception) { push("onMovies", "{\"error\":true}") }
+                } catch (e: Exception) { push("onMovies", JSONObject().put("error", e.toString()).toString()) }
             }.start()
         }
     }
@@ -196,4 +197,3 @@ class MainActivity : Activity() {
         super.onDestroy()
     }
 }
-
