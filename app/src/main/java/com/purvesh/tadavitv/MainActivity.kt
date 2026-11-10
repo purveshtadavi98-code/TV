@@ -72,3 +72,39 @@ class MainActivity : Activity() {
         }
     }
 }
+webView.webViewClient = object : WebViewClient() {
+            override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
+                val url = request?.url.toString()
+                if (url.startsWith("intent://")) {
+                    try {
+                        val intent = Intent.parseUri(url, Intent.URI_INTENT_SCHEME)
+                        if (intent != null) {
+                            val pkg = intent.getPackage()
+                            if (pkg != null) {
+                                val launchIntent = packageManager.getLaunchIntentForPackage(pkg)
+                                if (launchIntent != null) {
+                                    startActivity(launchIntent)
+                                    return true
+                                }
+                            }
+                            if (intent.resolveActivity(packageManager) != null) {
+                                startActivity(intent)
+                                return true
+                            }
+                            if (pkg != null) {
+                                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$pkg")))
+                                return true
+                            }
+                        }
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                    return true
+                }
+                return false
+            }
+        }
+
+        webView.loadUrl("file:///android_asset/index.html")
+    }
+}
